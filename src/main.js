@@ -1,4 +1,7 @@
 import { tiles } from './tiles.js'
+import { initTelemetry, trackEvent } from './telemetry.js'
+
+initTelemetry()
 
 const root = document.getElementById('hotspots')
 const overlay = document.getElementById('overlay')
@@ -41,6 +44,7 @@ function openOverlay(tile) {
   overlay.setAttribute('aria-hidden', 'false')
   document.body.classList.add('overlay-open')
   overlayClose.focus()
+  trackEvent(`tile/${tile.id}`, tile.title || tile.label || tile.id)
 }
 
 function closeOverlay() {
